@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name ="viewport" content="width=device-width, initial-scale=1">
+    <title>Running Storage</title>
+    <link rel="stylesheet" href="RunningStyle.css">
+</head> 
+<body>
+  <div id="container">
+    <div id="headerTitle">
+      <h1>Welcome to Run Storage</h1>
+    </div>
+    <h2 id="uploadPrompt">Upload your run below:</h2>
+    <label for="fileInput" id="dropArea">
+      <input type="file" id="fileInput" hidden> 
+      <div id="imgView">
+        <img src="Images/508-icon.png" id="uploadIcon">
+        <p id="inputText">Drage and drop or click here<br>to upload image</br></p>
+        <span>Upload and images from desktop</span>
+      </div>
+    </label>
+    <h3>Example of expected upload file</h3>
+    <img src="Images/image.png" id="exampleImg">
+    <br>
+    <br>
+    <div id="manuelInput">
+      <h2 id="manualPrompt">Or manually enter each run individually</h2>
+      <p>Distance
+      <input type="number" id="distanceField">
+      <label for="distanceField">Miles</label>
+      <br>
+      </p>
+      <p>Time
+      <input type="text" id="timeField">
+      <label for="timeField">hh:mm:ss</label>
+      </p>
+      <p>Date
+        <input type="date" id="dateField">
+        <label for="date"></label>
+      </p>
+      <Button id="enterRun">Log Run</Button>
+    </div>
+    <div id="tableContainer">
+      <table id="runTable" style="width: 80%">
+        <tr>
+          <th>Run Date</th>
+          <th>Run Distance</th>
+          <th>Run Time</th>
+          <th>Run Pace</th>
+        </tr>
+        <tr id="temp">
+          <td id="toReplace" colspan="4">No runs added yet!</td>
+        </tr>
+      </table>
+    </div>
+
+  </div>
+
+
+  <script src="RunningProgram.js"></script>
+</body>
+</html>
