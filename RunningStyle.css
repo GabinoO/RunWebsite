@@ -1,0 +1,149 @@
+*{
+  margin: 0;
+  padding: 0;
+  font-family: "Poppins", "sans-serif";
+  box-sizing: border-box;
+}
+
+body {
+  background: #475c6c;
+  color: white;
+}
+
+#container {
+  display: flex;
+  flex-direction: column;
+
+}
+
+#headerTitle{
+  padding: 5px;
+  margin: 10px;
+  text-align: center;
+}
+
+h1 {
+  color: white;
+}
+
+#uploadPrompt {
+  margin: 0px 20px 20px 100px;
+}
+
+#dropArea {
+  margin: 0px 0px 0px 100px;
+  margin-bottom: 30px;
+  width: 500px;
+  height: 300px;
+  padding: 30px;
+  border-radius: 20px;
+  background-color: black;
+}
+
+#imgView {
+  width: 100%;
+  height: 100%;
+  border-radius: 20px;
+  border: 2px dashed;
+  text-align: center;
+}
+
+#imgView #uploadIcon {
+  width: 100px;
+  margin-top: 25px;
+}
+
+#imgView span {
+  display: block;
+  font-size: 12px;
+  margin-top: 15px;
+}
+
+h3 {
+  margin: 10px 100px;
+}
+
+#exampleImg {
+  width: 50%;
+  margin: 0px 100px;
+  margin-bottom: 50px;
+  border-radius: 20px;
+}
+
+#manuelInput {
+  padding: 25px;
+  margin: 0px 0px 0px 100px;
+  background-color: black;
+  width: 50%;
+  border-radius: 20px;
+}
+
+#distanceField {
+  margin: 10px 5px 0px 20px;
+  height: 30px;
+  width: 125px;
+  font-size: 20px;
+  padding: 5px;
+  border: 2px solid;
+}
+
+#timeField {
+  margin: 10px 5px 10px 42px;
+  height: 30px;
+  width: 125px;
+  font-size: 20px;
+  padding: 5px;
+  border: 2px solid;
+}
+
+#dateField {
+  margin: 10px 5px 10px 42px;
+  height: 30px;
+  width: 125px;
+  font-size: 15px;
+  padding: 5px;
+  border: 2px solid;
+}
+
+#enterRun {
+  float: right;
+  font-size: 20px;
+  width: 125px;
+  height: 40px;
+  border-radius: 10px;
+  
+  transition: ease-in-out background-color 0.5s;
+}
+
+#enterRun:hover {
+  color: #D6869D;
+  background-color: black;
+}
+
+p {
+  margin: 25px;
+}
+
+#tableContainer {
+  margin: 50px 0px 20px 100px;
+}
+
+th, td {
+  margin: 5px;
+  padding: 5px;
+  border: 0.5px solid #D6869D;
+  border-radius: 5px;
+}
+
+
+table {
+  padding: 10px;
+  border: 0.5px solid #D6869D;
+  border-radius: 10px;
+}
+
+#toReplace {
+  text-align: left;
+}
+
+
