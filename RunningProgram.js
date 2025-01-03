@@ -147,6 +147,10 @@ sortButton.addEventListener("click",sortTableRuns);
  * This function sorts the runs that are inside the runTable by date
  */
 function sortTableRuns() {
+  // if not runs have been added than just return
+  if (runsPresent == 0) {
+    return;
+  }
   clearTable("runTable");
   for (let i = 0; i < runCollection.length; ++i) {
     addRunToTable("runTable",runCollection[i]);
@@ -183,6 +187,12 @@ function showRecentRun() {
   for (let i = 0; i < rowsToAdd; ++i) {
     addRunToTable("informationTable",runCollection[i]);
   }
+  // finally scroll the user to the informationTable
+  target = document.getElementById("informationTable");
+  target.scrollIntoView({
+    behavior: 'smooth',  // Optional: adds smooth scrolling
+    block: 'start'       // Optional: aligns the element to the top of the viewport
+  });
 }
 
 
@@ -214,6 +224,13 @@ function showFastRun() {
   //add it to the informationTable
   addRunToTable("informationTable",currFastestRun);
 
+  // finally scroll the user to the informationTable
+  target = document.getElementById("informationTable");
+  target.scrollIntoView({
+    behavior: 'smooth',  // Optional: adds smooth scrolling
+    block: 'start'       // Optional: aligns the element to the top of the viewport
+  });
+
 }
 
 const longButton = document.getElementById("longButton");
@@ -242,6 +259,13 @@ function showLongRun() {
 
   //add it to the informationTable
   addRunToTable("informationTable",currLongestRun);
+
+  // finally scroll the user to the informationTable
+  target = document.getElementById("informationTable");
+  target.scrollIntoView({
+    behavior: 'smooth',  
+    block: 'start'       
+  });
 }
 
 
