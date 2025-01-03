@@ -1,5 +1,12 @@
 const runCollection = []; // this collection(array) of Run Objects is from [recent date --> least recent date]
 let runsPresent = 0; // keeps track of the size
+let fastestRun = { // a run object that represents the fastest run in this collection
+
+};
+
+let longestRun = { // a run obhject that represent the longest run in this collection
+
+};
 
 // will handle if a user wants to drag a file over
 const dropArea = document.getElementById("dropArea");
@@ -85,7 +92,7 @@ enterButton.addEventListener("click",addRunManually); // listens for when the bu
  */
 function addRunManually() {
   // sets variables
-  let table = document.getElementById("runTable"); // the table the run will be added to
+  //let table = document.getElementById("runTable"); // the table the run will be added to
   let runAdded = false;
   let runToAdd = { // the run object that will be added to the table
     distance : 0,
@@ -93,7 +100,6 @@ function addRunManually() {
     pace : "",
     date : new Date(),
   };
-  let wordTemp;
 
   // saves input from user
   let runDistance = document.getElementById("distanceField").value;
@@ -102,58 +108,34 @@ function addRunManually() {
 
   // validates input via another function
   let errorFound = verifyUserInput(runDistance, runTime, runDate);
+  
+  // now add input to Run Object and add to the run Collection
+  if (errorFound == false) {
+    let runPace = calculatePace(runDistance, runTime);
+    runToAdd.distance = Number(runDistance);
+    runToAdd.time = runTime;
+    runToAdd.pace = runPace;
+    runToAdd.date = new Date(dateInputFormatter(runDate));
+    runCollection.push(runToAdd);
+    runAdded = true;
+  }
 
   // remove any rows in the table that are error messages before adding the run to the table
   if (runAdded == true) {
     clearErrorMessages();
   }
 
+  // sort the global variable RunCollection via their date value
+  sortCollection();
+
   // now add run to table
   if (errorFound == false) {
-    let rowToAdd = document.createElement("tr");
-    let distanceElement = document.createElement("td");
-    let timeElement = document.createElement("td");
-    let dateElement = document.createElement("td");
-
-    let paceElement = document.createElement("td");
-    let runPace = calculatePace(runDistance, runTime);
-
-    distanceElement.textContent = runDistance;
-    timeElement.textContent = runTime;
-    dateElement.textContent = runDate;
-    paceElement.textContent = runPace;
-    rowToAdd.appendChild(dateElement);
-    rowToAdd.appendChild(distanceElement);
-    rowToAdd.appendChild(timeElement);
-    rowToAdd.appendChild(paceElement);
-
-    if (table.rows.length > 1 && table.rows[1].innerText.trim().includes("No runs added")) { // if default text is present
-      table.deleteRow(1);
-      table.appendChild(rowToAdd);
-    }
-    else {
-      table.appendChild(rowToAdd);
-    }
-
+    addRunToTable("runTable",runToAdd);
+  }
     // clear user input from text boxes
     clearInput();
-
-    // now add input to Run Object and add to the run Collection
-    if (errorFound == false) {
-      runToAdd.distance = Number(runDistance);
-      runToAdd.time = runTime;
-      runToAdd.pace = runPace;
-      runToAdd.date = new Date(dateInputFormatter(runDate));
-      runCollection.push(runToAdd);
-      runAdded = true;
-    }
-
-    // sort the global variable RunCollection via their date value
-    sortCollection();
-      
-    // increment varaibles
     ++runsPresent;
-  }
+
 }
 
 
@@ -172,6 +154,7 @@ function sortTableRuns() {
 }
 
 
+// will handle when the recentButton is clicked
 const recentButton = document.getElementById("recentButton");
 recentButton.addEventListener("click",showRecentRun);
 
@@ -184,11 +167,11 @@ function showRecentRun() {
     return;
   }
 
+  clearTable("informationTable"); // clear any previous info from this table
   document.getElementById("informationTable").style.display = "table"; // makes the table visible
   document.getElementById("informationHeader").innerText = "Most Recent 10 Runs"; // adds a header to the table
+  let rowsToAdd = 0; 
 
-  clearTable("informationTable");
-  let rowsToAdd = 0;
   // will display 10 rows if there are more than 10 runs in the collection, otherwise display all runs in the collection
   if (runsPresent < 10) {
     rowsToAdd = runsPresent;
@@ -197,10 +180,68 @@ function showRecentRun() {
     rowsToAdd = 10;
   }
 
-  for (let i = 0; i < runsPresent; ++i) {
+  for (let i = 0; i < rowsToAdd; ++i) {
     addRunToTable("informationTable",runCollection[i]);
   }
+}
 
+
+// will handle when the fastestButton is clicked
+const fastButton = document.getElementById("fastButton");
+fastButton.addEventListener("click",showFastRun);
+
+/**
+ * this method finds the fastest run in the collection and adds it to the informationTable
+ * 
+ */
+function showFastRun() {
+  // if not runs have been added than just return
+  if (runsPresent == 0) {
+    return;
+  }
+
+  clearTable("informationTable"); // clear any previous info from this table
+  document.getElementById("informationTable").style.display = "table"; // makes the table visible
+  document.getElementById("informationHeader").innerText = "Fastest Run In Log"; // adds a header to the table
+  let currFastestRun = runCollection[0];
+  // find the fastest run
+  for (let i = 1; i < runCollection.length; ++i) {
+    if (comparePace(currFastestRun.pace, runCollection[i].pace) < 0) {
+      currFastestRun = runCollection[i];
+    }
+  }
+
+  //add it to the informationTable
+  addRunToTable("informationTable",currFastestRun);
+
+}
+
+const longButton = document.getElementById("longButton");
+longButton.addEventListener("click",showLongRun);
+
+/**
+ * This method finds the Longest run in the collection and adds it ot the informationTable
+ */
+function showLongRun() {
+  // if not runs have been added than just return
+  if (runsPresent == 0) {
+    return;
+  }
+
+  clearTable("informationTable"); // clear any previous info from this table
+  document.getElementById("informationTable").style.display = "table"; // makes the table visible
+  document.getElementById("informationHeader").innerText = "Longest Run In Log"; // adds a header to the table
+  let currLongestRun = runCollection[0];
+
+  // find the Longest run
+  for (let i = 1; i < runCollection.length; ++i) {
+    if (currLongestRun.distance < runCollection[i].distance) {
+      currLongestRun = runCollection[i];
+    }
+  }
+
+  //add it to the informationTable
+  addRunToTable("informationTable",currLongestRun);
 }
 
 
@@ -634,6 +675,11 @@ function addRunToTable(tableID,run) {
   rowToAdd.appendChild(distanceElement);
   rowToAdd.appendChild(timeElement);
   rowToAdd.appendChild(paceElement);
+
+  // if the defualt text is still present in the runTable than remove it first
+  if (tableID == "runTable" && table.rows.length > 1 && table.rows[1].innerText.includes("No runs added")) {
+    table.deleteRow(1);
+  } 
   table.appendChild(rowToAdd);
 
 
@@ -694,9 +740,4 @@ function dateInputFormatter(date) {
   let dateParts = date.split("-");
   return dateParts[0] + "/" + dateParts[1] + "/" + dateParts[2];
 }
-
-
-
-
-
 
