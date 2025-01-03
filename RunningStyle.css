@@ -125,7 +125,7 @@ p {
 }
 
 #tableContainer {
-  margin: 50px 0px 20px 100px;
+  margin: 0px 0px 20px 100px;
 }
 
 th, td {
@@ -145,5 +145,44 @@ table {
 #toReplace {
   text-align: left;
 }
+
+#buttonContainers {
+  margin: 100px 50px 25px 100px;
+  display: flex;
+  flex-direction: row;
+  gap: 50px;
+}
+
+.informationButtons {
+  font-size: 15px;
+  padding: 5px;
+  border-radius: 10px;
+  width: 150px;
+  height: 40px;
+  background-color: white;
+  transition: ease-in-out background-color 0.5s;
+}
+
+.informationButtons:hover {
+  color: #D6869D;
+  background-color: black;
+}
+
+#informationContainer {
+  margin: 50px 0px 200px 100px;
+}
+
+#informationHeader{
+  margin: 5px;
+  text-decoration-line: underline;
+}
+
+
+#informationTable {
+  width: 80%;
+  display: none;
+}
+
+
 
 
